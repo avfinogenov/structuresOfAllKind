@@ -1,8 +1,12 @@
 #pragma once
 #include <iostream>
+#include <cassert>
 #include "Node.h"
 
 
+
+// Use (void) to silence unused warnings.
+#define assertm(exp, msg) assert(((void)msg, exp))
 template <typename T>
 class MyStack
 {
@@ -10,11 +14,12 @@ public:
 	MyStack(T data);
 	~MyStack();
 	void append(T data);
-	T pop();
+	void pop();
+	T last();
 
 
 private:
-	
+	bool m_isStuffed = false;
 	Node<T>* m_current = nullptr;
 
 };
@@ -25,6 +30,7 @@ MyStack<T>::MyStack(T data)
 {
 	m_current = new Node<T>;
 	m_current->data = data;
+	m_isStuffed = true;
 }
 
 template<typename T>
@@ -46,28 +52,32 @@ void MyStack<T>::append(T data)
 }
 
 template<typename T>
-T MyStack<T>::pop()
+void MyStack<T>::pop()
 {
-	try 
-	{
+	assert("MyStack is empty" && m_current == nullptr);
+	
 		if (m_current != nullptr)
 		{
 			Node<T>* current = m_current;
-			T data = m_current->data;
 			m_current = m_current->prev;
 			delete current;
-			return data;
+			return;
 		}
-		throw 1;
-	}
-	catch (int)
-	{
+		m_isStuffed = false;
 		
-		std::cout << "MyStack out of range, next value is garbadge";
-		return T();
+
+	
+
+
+}
+
+template<typename T>
+inline T MyStack<T>::last()
+{
+	assert("MyStack is empty" && m_current == nullptr);
+	if (m_current != nullptr)
+	{
+
+		return m_current->data;
 	}
-	
-	
-
-
 }
