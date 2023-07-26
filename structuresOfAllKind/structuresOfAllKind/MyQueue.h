@@ -54,7 +54,6 @@ inline void MyQueue<T>::add(T data)
 	QueueNode<T>* tmp = new QueueNode<T>();
 	m_end->data = data;
 	m_end->next = tmp;
-	tmp->prev = m_end;
 	m_end = tmp;
 
 

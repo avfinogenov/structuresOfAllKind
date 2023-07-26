@@ -11,7 +11,7 @@ struct StackNode
 template <typename T>
 struct QueueNode
 {
-	QueueNode<T>* prev = nullptr;
+
 	QueueNode<T>* next = nullptr;
 	T data;
 };
