@@ -26,6 +26,14 @@ void MyBinaryTree::add(int value)
 
 }
 
+BinaryTreeNode* MyBinaryTree::find(int key)
+{
+	//идем по дереву, пока ветки не нули
+
+
+	return root.key == key? &root: findNextStep(&root, key);
+}
+
 uint64_t MyBinaryTree::getNumberOfNodes()
 {
 	return m_numberOfNodes;
@@ -78,16 +86,41 @@ void MyBinaryTree::insert(BinaryTreeNode* node, int value)
 
 }
 
-
-
-
-void createTree(MyBinaryTree& treeToCreate, int numberOfInputs)
+BinaryTreeNode* MyBinaryTree::findNextStep(BinaryTreeNode* node, int key)
 {
-	
+	if (node->lesser == nullptr && node->greater == nullptr &&
+		node->key != key)
+	{
+		return nullptr;
+	}
+	if (key == node->key)
+	{
+		return node;
+	}
+	if (key > node->key)
+	{
+		return findNextStep(node->greater, key);
+	}
+	else
+	{
+		return findNextStep(node->lesser, key);
+	}
+
+}
+
+
+
+
+std::list<int> createTree(MyBinaryTree& treeToCreate, int numberOfInputs)
+{
+	std::list<int> values;
 	for (int i = 0; i < numberOfInputs; ++i)
 	{
-		treeToCreate.add(rand() % 1000);
+		int tmp = rand() % 1000;
+		values.push_back(tmp);
+		treeToCreate.add(tmp);
 	}
+	return values;
 
 
 }

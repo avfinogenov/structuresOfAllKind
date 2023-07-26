@@ -38,10 +38,19 @@ int main()
 	//listTest();
 	MyBinaryTree t;
 	int sizeOfTree = rand() % 300;
-	createTree(t, sizeOfTree);
+	std::list<int> testValues = createTree(t, sizeOfTree);
 	std::cout << sizeOfTree << " " << t.getNumberOfNodes() << " " << t.getNumberOfRepeats();
+	for (int i = 0; i < testValues.size(); ++i)
+	{
+		if (testValues.front() != t.find(testValues.front())->key)
+		{
+			std::cout << "error\n";
+			return 1;
+		}
+		testValues.pop_front();
 
-	
+	}
+	std::cout << "all right\n";
 
 	return _CrtDumpMemoryLeaks();
 

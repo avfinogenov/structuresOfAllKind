@@ -1,4 +1,5 @@
 #pragma once
+#include <list>
 #include "Nodes.h"
 
 class MyBinaryTree
@@ -24,7 +25,8 @@ private:
 	//debug
 	uint64_t m_numberOfNodes = 0;
 	uint64_t m_numberOfRepeats = 0;
+	BinaryTreeNode* findNextStep(BinaryTreeNode* node, int key);
 
 };
 
-void createTree(MyBinaryTree& treeToCreate, int numberOfInputs);
+std::list<int> createTree(MyBinaryTree& treeToCreate, int numberOfInputs);
