@@ -1,4 +1,8 @@
 #pragma once
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define new DEBUG_NEW
 #include <iostream>
 
 #include "Nodes.h"
@@ -11,7 +15,7 @@ template <typename T>
 class MyStack
 {
 public:
-	MyStack(T data);
+	MyStack();
 	~MyStack();
 	void append(T data);
 	void pop();
@@ -26,10 +30,10 @@ private:
 
 
 template<typename T>
-MyStack<T>::MyStack(T data)
+MyStack<T>::MyStack()
 {
 	m_current = new StackNode<T>;
-	m_current->data = data;
+
 	
 }
 
