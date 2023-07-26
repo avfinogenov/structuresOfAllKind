@@ -7,6 +7,7 @@
 #include <list>
 #include <stack>
 #include <random>
+#include <queue>
 #include "MyStack.h"
 #include "MyQueue.h"
 
@@ -26,24 +27,16 @@
 
 
 void stackTest();
-
+void queueTest();
 
 int main()
 {
 	srand(time(NULL));
+	std::cout << "stack test\n";
 	stackTest();
-	/*MyStack<int> test(1);
-	test.pop();
-	std::cout << test.last() << "\n";
-	test.pop();
-	std::cout << test.last() << "\n";*/
-	/*MyQueue<int> test2;
-	test2.add(1);
-	test2.add(2);
-	do
-	{
-		std::cout << test2.front();
-	} while (test2.pop_front());*/
+	std::cout << "queue test\n";
+	queueTest();
+
 	
 	
 
@@ -99,6 +92,59 @@ void stackTest()
 		for (int j = 0; j < 1000; ++j)
 		{
 			tmp.append(1);
+		}
+
+	}
+	std::cout << "memory test finished\n";
+}
+
+void queueTest()
+{
+	std::cout << "matching test\n";
+	MyQueue<int> myQueue;
+	std::queue<int> originQueue;
+	int curRand = rand() % 100;
+	for (int i = 0; i < curRand; ++i)
+	{
+		int tmp = rand() % 500;
+		originQueue.push(tmp);
+		myQueue.add(tmp);
+		if (myQueue.front() != originQueue.front())
+		{
+			std::cout << "error\n";
+			return;
+		}
+		originQueue.pop();
+		myQueue.pop_front();
+
+	}
+	curRand = rand() % 500;
+	for (int i = 0; i < curRand; ++i)
+	{
+		int tmp = rand() % 500;
+		originQueue.push(tmp);
+		myQueue.add(tmp);
+	}
+	for (int i = 0; i < curRand; ++i)
+	{
+		if (myQueue.front() != originQueue.front())
+		{
+			std::cout << "error\n";
+			return;
+		}
+		originQueue.pop();
+		myQueue.pop_front();
+
+	}
+	std::cout << "matching test succes\n";
+
+	std::cout << "memory test\n";
+	for (int i = 0; i < 100000; ++i)
+	{
+		MyQueue<int> tmp;
+		for (int j = 0; j < 1000; ++j)
+		{
+			tmp.add(1);
 		}
 
 	}

@@ -45,7 +45,9 @@ inline MyQueue<T>::~MyQueue()
 			continue;
 
 		}
+		
 	}
+	delete m_start;
 }
 
 template<typename T>
