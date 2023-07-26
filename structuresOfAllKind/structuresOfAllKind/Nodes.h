@@ -28,7 +28,10 @@ struct TwoWayNode
 struct BinaryTreeNode
 {
 	int key;
-	
+	//не меньше
+	int notLesser = INT_MIN;
+	//не больше
+	int notGreater = INT_MAX;
 	BinaryTreeNode* greater = nullptr;
 	BinaryTreeNode* lesser = nullptr;
 	BinaryTreeNode* parent = nullptr;

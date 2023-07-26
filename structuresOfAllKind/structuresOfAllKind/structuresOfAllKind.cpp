@@ -20,12 +20,14 @@
 //in queue and twowaylist need to rethink constructor
 // smart pointers
 // перечисление в дерево
-
+// понять, почему иногда находит ключ, 
 
 
 void stackTest();
 void queueTest();
 void listTest();
+
+
 
 int main()
 {
@@ -40,7 +42,64 @@ int main()
 	int sizeOfTree = rand() % 300;
 	std::list<int> testValues = createTree(t, sizeOfTree);
 	std::cout << sizeOfTree << " " << t.getNumberOfNodes() << " " << t.getNumberOfRepeats();
-	for (int i = 0; i < testValues.size(); ++i)
+	int lossCounter = 0;
+	for (int i = 0; i < testValues.size() / 2; ++i)
+	{
+		int tmp1, tmp2;
+		tmp1 = testValues.front();
+		testValues.pop_front();
+		tmp2 = rand() % 1000;
+		/*int tmp3 = std::max(tmp1, tmp2);
+		int tmp4 = std::min(tmp1, tmp2);*/
+
+		while (!t.insert(tmp1, tmp2))
+		{
+			tmp2 = rand() % 1000 ;
+		}
+		
+		
+		testValues.push_back(tmp1);
+		testValues.push_back(tmp2);
+
+		BinaryTreeNode* node = t.find(tmp2);
+		if (node != nullptr)
+		{
+			while (node->key != tmp1)
+			{
+				if (node->parent == nullptr && node->key != tmp1)
+				{
+					std::cout << "error\n";
+					return 1;
+				}
+
+
+				node = node->parent;
+				if (node->parent == nullptr && node->key != tmp1)
+				{
+					lossCounter++;
+					std::cout << node << " " << tmp1 << " " << tmp2;
+					break;
+				}
+			}
+
+		}
+		else
+		{
+			lossCounter++;
+			std::cout << node << " " << tmp1 << " " << tmp2;
+		}
+		
+		
+		
+
+
+		
+	}
+	
+	
+	
+	
+	/*for (;!testValues.empty(); )
 	{
 		if (testValues.front() != t.find(testValues.front())->key)
 		{
@@ -49,8 +108,9 @@ int main()
 		}
 		testValues.pop_front();
 
-	}
+	}*/
 	std::cout << "all right\n";
+	std::cout << lossCounter;
 
 	return _CrtDumpMemoryLeaks();
 
