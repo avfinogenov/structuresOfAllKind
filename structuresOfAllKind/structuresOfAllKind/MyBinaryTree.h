@@ -28,7 +28,7 @@ private:
 	uint64_t m_numberOfNodes = 0;
 	uint64_t m_numberOfRepeats = 0;
 	BinaryTreeNode* findNextStep(BinaryTreeNode* node, int key);
-	int makeAnotherRool(BinaryTreeNode* node);
+	
 
 };
 
