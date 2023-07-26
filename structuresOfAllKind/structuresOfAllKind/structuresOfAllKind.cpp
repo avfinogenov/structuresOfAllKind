@@ -4,7 +4,9 @@
 #include "MyStack.h"
 #include "MyQueue.h"
 
-
+//todo 
+//proper testing
+//in queue and twowaylist need to rethink constructor
 int main()
 {
 
