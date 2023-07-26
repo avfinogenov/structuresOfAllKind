@@ -12,8 +12,8 @@ public:
 	void push_front(T data);
 	T back();
 	T front();
-	void pop_back();
-	void pop_front();
+	bool pop_back();
+	bool pop_front();
 
 
 
@@ -35,7 +35,18 @@ inline TwoWayList<T>::TwoWayList()
 template<typename T>
 inline TwoWayList<T>::~TwoWayList()
 {
-	std::cout << "todo destructor\n";
+	if (m_start->next != nullptr)
+	{
+
+
+		while (pop_front())
+		{
+			continue;
+
+		}
+
+	}
+	delete m_start;
 }
 
 template<typename T>
@@ -71,22 +82,51 @@ inline T TwoWayList<T>::front()
 }
 
 template<typename T>
-inline void TwoWayList<T>::pop_back()
+inline bool TwoWayList<T>::pop_back()
 {
+	if (m_start == m_end)
+	{
+		return false;
+	}
 	TwoWayNode<T>* tmp = m_end->prev;
-	tmp->prev->next = m_end;
-	m_end->prev = tmp->prev;
-	delete tmp;
-
+	if (tmp->prev != nullptr)
+	{
+		
+		tmp->prev->next = m_end;
+		m_end->prev = tmp->prev;
+		delete tmp;
+	}
+	else
+	{
+		m_start = m_end;
+		m_start->prev = nullptr;
+		m_start->next = nullptr;
+		delete tmp;
+	}
+	
+	return m_end->prev != nullptr;
 }
 
 template<typename T>
-inline void TwoWayList<T>::pop_front()
+inline bool TwoWayList<T>::pop_front()
 {
+	if (m_start == m_end)
+	{
+		return false;
+	}
 	TwoWayNode<T>* tmp = m_start;
-	m_start = m_start->next;
-	m_start->prev = nullptr;
-	delete tmp;
-
+	if (m_start != m_end)
+	{
+		if (m_start->next != nullptr)
+		{
+			m_start = m_start->next;
+			m_start->prev = nullptr;
+			delete tmp;
+		}
+	}
+	
+	
+	
+	return m_start->next != nullptr;
 
 }
