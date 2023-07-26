@@ -24,3 +24,12 @@ struct TwoWayNode
 	TwoWayNode<T>* prev = nullptr;
 	T data;
 };
+
+struct BinaryTreeNode
+{
+	int key;
+	
+	BinaryTreeNode* greater = nullptr;
+	BinaryTreeNode* lesser = nullptr;
+	BinaryTreeNode* parent = nullptr;
+};

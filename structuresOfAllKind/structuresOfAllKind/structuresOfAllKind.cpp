@@ -12,18 +12,14 @@
 #include "MyStack.h"
 #include "MyQueue.h"
 #include "TwoWayList.h"
-
+#include "MyBinaryTree.h"
 
 
 
 //todo 
-//proper testing
-// stack +
-// queue +
-// twlist +
 //in queue and twowaylist need to rethink constructor
 // smart pointers
-
+// перечисление в дерево
 
 
 
@@ -34,13 +30,17 @@ void listTest();
 int main()
 {
 	srand(time(NULL));
-	std::cout << "stack test\n";
-	stackTest();
-	std::cout << "queue test\n";
-	queueTest();
-	std::cout << "list test\n";
-	listTest();
-	
+	//std::cout << "stack test\n";
+	//stackTest();
+	//std::cout << "queue test\n";
+	//queueTest();
+	//std::cout << "list test\n";
+	//listTest();
+	MyBinaryTree t;
+	int sizeOfTree = rand() % 300;
+	createTree(t, sizeOfTree);
+	std::cout << sizeOfTree << " " << t.getNumberOfNodes() << " " << t.getNumberOfRepeats();
+
 	
 
 	return _CrtDumpMemoryLeaks();
