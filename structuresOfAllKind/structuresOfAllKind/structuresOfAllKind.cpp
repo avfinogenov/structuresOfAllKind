@@ -9,6 +9,10 @@
 #include <random>
 #include <queue>
 #include <list>
+#include <set>
+#include <algorithm>
+#include <random>
+#include <vector>
 #include "MyStack.h"
 #include "MyQueue.h"
 #include "TwoWayList.h"
@@ -21,7 +25,7 @@
 // smart pointers
 // перечисление в дерево
 // понять, почему иногда находит ключ, 
-
+// прокоментить формулы
 
 void stackTest();
 void queueTest();
@@ -40,18 +44,40 @@ int main()
 	//listTest();
 	MyBinaryTree t;
 	//int sizeOfTree = rand() % 300 + 1500;
-	int sizeOfTree = 10050;
+	int sizeOfTree = 100050;
 	std::list<int> testValues = createTree(t, sizeOfTree);
+	std::set<int> setOfTestValuesKeys;
+	std::set<int> setOfTestValuesV;
+	for (int i = 0; i < sizeOfTree; ++i)
+	{
+		int tmp = testValues.front();
+		setOfTestValuesKeys.insert(tmp);
+		testValues.pop_front();
+		testValues.push_back(tmp);
+
+	}
 	std::cout << sizeOfTree << " " << t.getNumberOfNodes() << " " << t.getNumberOfRepeats();
 	int lossCounter = 0;
-	int numberOfInserts = testValues.size() / 2;
+	int numberOfInserts = setOfTestValuesKeys.size();
+	std::set<int>::iterator it = setOfTestValuesKeys.begin();
 	for (int i = 0; i < numberOfInserts; ++i)
 	{
 		int tryCOunter = 0;
 		int tmp1, tmp2;
-		tmp1 = testValues.front();
-		testValues.pop_front();
+		tmp1 = *(it++);
+		//testValues.pop_front();
 		tmp2 = rand() % (sizeOfTree * sizeOfTree / ((sizeOfTree / 100 + 1) % 100));
+		while (setOfTestValuesKeys.find(tmp2) != setOfTestValuesKeys.end())
+		{
+			if (tryCOunter > 10000000)
+			{
+				std::cout << "cant find a number to insert\n";
+				return 0;
+			}
+			tryCOunter++;
+			tmp2 = (rand() % (sizeOfTree * sizeOfTree / ((sizeOfTree / 100 + 1) % 100)));
+		}
+		
 		//tmp2 = tmp2 - (sizeOfTree * sizeOfTree);
 		/*int tmp3 = std::max(tmp1, tmp2);
 		int tmp4 = std::min(tmp1, tmp2);*/
@@ -69,8 +95,8 @@ int main()
 		}
 		
 		
-		testValues.push_back(tmp1);
-		testValues.push_back(tmp2);
+		
+		setOfTestValuesV.insert(tmp2);
 
 		BinaryTreeNode* node = t.find(tmp2);
 		if (node != nullptr)
