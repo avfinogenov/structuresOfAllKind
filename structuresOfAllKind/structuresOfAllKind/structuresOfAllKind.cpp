@@ -45,6 +45,13 @@ int main()
 	MyBinaryTree t;
 	//int sizeOfTree = rand() % 300 + 1500;
 	int sizeOfTree = 100050;
+	auto rng = std::default_random_engine{};
+	std::vector<int> cards_;
+	for (int i = 0; i < sizeOfTree; ++i)
+	{
+		cards_.push_back(i);
+	}
+	std::shuffle(std::begin(cards_), std::end(cards_), rng);
 	std::list<long long> testValues = createTree(t, sizeOfTree);
 	std::set<long long> setOfTestValuesKeys;
 	std::set<long long> setOfTestValuesV;
