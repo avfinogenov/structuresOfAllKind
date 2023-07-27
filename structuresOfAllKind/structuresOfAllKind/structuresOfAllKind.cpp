@@ -39,23 +39,33 @@ int main()
 	//std::cout << "list test\n";
 	//listTest();
 	MyBinaryTree t;
-	int sizeOfTree = rand() % 300 + 200;
+	//int sizeOfTree = rand() % 300 + 1500;
+	int sizeOfTree = 10050;
 	std::list<int> testValues = createTree(t, sizeOfTree);
 	std::cout << sizeOfTree << " " << t.getNumberOfNodes() << " " << t.getNumberOfRepeats();
 	int lossCounter = 0;
 	int numberOfInserts = testValues.size() / 2;
 	for (int i = 0; i < numberOfInserts; ++i)
 	{
+		int tryCOunter = 0;
 		int tmp1, tmp2;
 		tmp1 = testValues.front();
 		testValues.pop_front();
-		tmp2 = rand() % 10000;
+		tmp2 = rand() % (sizeOfTree * sizeOfTree / ((sizeOfTree / 100 + 1) % 100));
+		//tmp2 = tmp2 - (sizeOfTree * sizeOfTree);
 		/*int tmp3 = std::max(tmp1, tmp2);
 		int tmp4 = std::min(tmp1, tmp2);*/
 
 		while (!t.insert(tmp1, tmp2))
 		{
-			tmp2 = rand() % 10000;
+			if (tryCOunter > 10000000)
+			{
+				std::cout << "cant find a number to insert\n";
+				return 0;
+			}
+			tryCOunter++;
+			tmp2 = (rand() % (sizeOfTree * sizeOfTree / ((sizeOfTree / 100 + 1) % 100))) ;
+			//tmp2 = tmp2 - ((sizeOfTree * sizeOfTree) + tryCOunter);
 		}
 		
 		
