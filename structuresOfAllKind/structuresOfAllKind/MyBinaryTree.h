@@ -8,8 +8,8 @@ class MyBinaryTree
 public:
 	MyBinaryTree();
 	~MyBinaryTree();
-	void add(int value);
-	BinaryTreeNode* find(int key);
+	void add(long long value);
+	BinaryTreeNode* find(long long key);
 	//родилась из неправильного понимания теории, решил сделать потому что забавно
 	bool insert(int key, int value);
 	void remove(int key);
@@ -23,14 +23,14 @@ public:
 private:
 	BinaryTreeNode root;
 	bool isRootInit = false;
-	void insert(BinaryTreeNode* node, int value);
-	bool insertWithRules(BinaryTreeNode* node, int value);
+	void insert(BinaryTreeNode* node, long long value);
+	bool insertWithRules(BinaryTreeNode* node, long long value);
 	//debug
 	uint64_t m_numberOfNodes = 0;
 	uint64_t m_numberOfRepeats = 0;
-	BinaryTreeNode* findNextStep(BinaryTreeNode* node, int key);
+	BinaryTreeNode* findNextStep(BinaryTreeNode* node, long long key);
 	
 
 };
 
-void createTree(MyBinaryTree& treeToCreate, std::vector<int> &inputValues);
+std::list<long long> createTree(MyBinaryTree& treeToCreate, int numberOfInputs);
