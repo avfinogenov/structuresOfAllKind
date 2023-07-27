@@ -33,4 +33,4 @@ private:
 
 };
 
-std::list<long long> createTree(MyBinaryTree& treeToCreate, int numberOfInputs);
+void createTree(MyBinaryTree& treeToCreate, std::vector<long long>& inputValues);
