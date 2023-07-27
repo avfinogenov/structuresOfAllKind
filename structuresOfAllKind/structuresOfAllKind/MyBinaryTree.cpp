@@ -10,7 +10,7 @@ MyBinaryTree::~MyBinaryTree()
 	std::cout << "todo a destructor\n";
 }
 
-void MyBinaryTree::add(int value)
+void MyBinaryTree::add(long long value)
 {
 	if (!isRootInit)
 	{
@@ -26,7 +26,7 @@ void MyBinaryTree::add(int value)
 
 }
 
-BinaryTreeNode* MyBinaryTree::find(int key)
+BinaryTreeNode* MyBinaryTree::find(long long key)
 {
 	//идем по дереву, пока ветки не нули
 
@@ -34,7 +34,7 @@ BinaryTreeNode* MyBinaryTree::find(int key)
 	return root.key == key? &root: findNextStep(&root, key);
 }
 
-bool MyBinaryTree::insert(int key, int value)
+bool MyBinaryTree::insert(long long key, long long value)
 {
 	BinaryTreeNode* node;
 	if ((node = find(value)) != nullptr)
@@ -69,7 +69,7 @@ uint64_t MyBinaryTree::getNumberOfRepeats()
 
 
 
-void MyBinaryTree::insert(BinaryTreeNode* node, int value)
+void MyBinaryTree::insert(BinaryTreeNode* node, long long value)
 {
 	
 	
@@ -116,7 +116,7 @@ void MyBinaryTree::insert(BinaryTreeNode* node, int value)
 
 }
 
-bool MyBinaryTree::insertWithRules(BinaryTreeNode* node, int value)
+bool MyBinaryTree::insertWithRules(BinaryTreeNode* node, long long value)
 {
 	if (node != &root)
 	{
@@ -176,7 +176,7 @@ bool MyBinaryTree::insertWithRules(BinaryTreeNode* node, int value)
 
 }
 
-BinaryTreeNode* MyBinaryTree::findNextStep(BinaryTreeNode* node, int key)
+BinaryTreeNode* MyBinaryTree::findNextStep(BinaryTreeNode* node, long long key)
 {
 	if (node->lesser == nullptr && node->greater == nullptr &&
 		node->key != key)
@@ -202,17 +202,17 @@ BinaryTreeNode* MyBinaryTree::findNextStep(BinaryTreeNode* node, int key)
 
 
 
-std::list<int> createTree(MyBinaryTree& treeToCreate, int numberOfInputs)
+void createTree(MyBinaryTree& treeToCreate, std::vector<long long>& inputValues)
 {
-	std::list<int> values;
-	for (int i = 0; i < numberOfInputs; ++i)
+	//std::list<int> values;
+	for (int i = 0; i < inputValues.size(); ++i)
 	{
 		int tmp = rand() % (numberOfInputs * numberOfInputs * 2 /  100);
 		//tmp = tmp - (numberOfInputs * numberOfInputs / ((numberOfInputs / 100 + 1) % 100));
 		values.push_back(tmp);
 		treeToCreate.add(tmp);
 	}
-	return values;
+	return;
 
 
 }

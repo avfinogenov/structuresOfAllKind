@@ -35,7 +35,7 @@ void listTest();
 
 int main()
 {
-	srand(time(NULL));
+	
 	//std::cout << "stack test\n";
 	//stackTest();
 	//std::cout << "queue test\n";
@@ -44,53 +44,91 @@ int main()
 	//listTest();
 	MyBinaryTree t;
 	//int sizeOfTree = rand() % 300 + 1500;
-	int sizeOfTree = 100050;
-	std::list<int> testValues = createTree(t, sizeOfTree);
-	std::set<int> setOfTestValuesKeys;
-	std::set<int> setOfTestValuesV;
+	int sizeOfTree = 500050;
+	auto rng = std::default_random_engine{};
+	std::vector<long long> cards_, cards2;
 	for (int i = 0; i < sizeOfTree; ++i)
 	{
-		int tmp = testValues.front();
-		setOfTestValuesKeys.insert(tmp);
-		testValues.pop_front();
-		testValues.push_back(tmp);
+		cards_.push_back(i);
+	}
+	/*for (int i = 0; i < sizeOfTree; ++i)
+	{
+		cards2.push_back(i + 50000 + (rand() % sizeOfTree));
+	}*/
+	std::shuffle(std::begin(cards_), std::end(cards_), rng);
+	srand(time(NULL));
+	//std::shuffle(std::begin(cards2), std::end(cards2), rng);
+	createTree(t, cards_);
+	
+
+
+	
+	std::set<long long> setOfTestValuesKeys;
+	std::set<long long> setOfTestValuesV;
+	for (int i = 0; i < sizeOfTree; ++i)
+	{
+		//int tmp = testValues.front();
+		setOfTestValuesKeys.insert(cards_[i]);
+		//testValues.pop_front();
+		//testValues.push_back(tmp);
 
 	}
 	std::cout << sizeOfTree << " " << t.getNumberOfNodes() << " " << t.getNumberOfRepeats();
 	int lossCounter = 0;
-	int numberOfInserts = setOfTestValuesKeys.size();
-	std::set<int>::iterator it = setOfTestValuesKeys.begin();
+	//int numberOfInserts = setOfTestValuesKeys.size();
+	int numberOfInserts = 500000;
+	std::set<long long>::iterator it = setOfTestValuesKeys.begin();
+	int haha = 0;
 	for (int i = 0; i < numberOfInserts; ++i)
 	{
-		int tryCOunter = 0;
-		int tmp1, tmp2;
-		tmp1 = *(it++);
-		//testValues.pop_front();
-		tmp2 = rand() % (sizeOfTree * sizeOfTree / ((sizeOfTree / 100 + 1) % 100));
-		while (setOfTestValuesKeys.find(tmp2) != setOfTestValuesKeys.end())
+		if (i / 1000 == haha)
 		{
-			if (tryCOunter > 10000000)
-			{
-				std::cout << "cant find a number to insert\n";
-				return 0;
-			}
-			tryCOunter++;
-			tmp2 = (rand() % (sizeOfTree * sizeOfTree / ((sizeOfTree / 100 + 1) % 100)));
+			haha++;
+			std::cout << i << "\n";
 		}
+		
+
+		
+		int tryCOunter = 0;
+		long long tmp1, tmp2;
+		//tmp1 = *(it++);
+		tmp1 = cards_[i];
+		//testValues.pop_front();
+		tmp2 = rand();
+		//tmp2 = cards2[i];
+		//while (setOfTestValuesKeys.find(tmp2) != setOfTestValuesKeys.end())
+		//{
+		//	if (tryCOunter > 10000000)
+		//	{
+		//		std::cout << "cant find a number to insert\n";
+		//		return 0;
+		//	}
+		//	tryCOunter++;
+		//	tmp2 = ((rand() % (LLONG_MAX - sizeOfTree)) * pow(10, rand() % 20)) + sizeOfTree;
+		//	tmp2 = tmp2 * (((rand() % 2) * -2) + 1);
+		//	//tmp2 = cards2[i + tryCOunter];
+		//}
 		
 		//tmp2 = tmp2 - (sizeOfTree * sizeOfTree);
 		/*int tmp3 = std::max(tmp1, tmp2);
 		int tmp4 = std::min(tmp1, tmp2);*/
-
+		tryCOunter = 0;
 		while (!t.insert(tmp1, tmp2))
 		{
+			
+
+		
 			if (tryCOunter > 10000000)
 			{
-				std::cout << "cant find a number to insert\n";
+				std::cout << "cant find a number to insert\n" << "index " << i;
+				t.insert(tmp1, tmp2);
 				return 0;
 			}
+			tmp2 = ((rand() % (LLONG_MAX - sizeOfTree )) * pow(10, rand() % 20)) + sizeOfTree;
+			tmp2 = tmp2 * (((rand() % 2) * -2) + 1);
+			//tmp2 = cards2[i + tryCOunter];
 			tryCOunter++;
-			tmp2 = (rand() % (sizeOfTree * sizeOfTree / ((sizeOfTree / 100 + 1) % 100))) ;
+			tmp1 = cards_[tryCOunter % sizeOfTree];
 			//tmp2 = tmp2 - ((sizeOfTree * sizeOfTree) + tryCOunter);
 		}
 		
@@ -149,7 +187,8 @@ int main()
 	std::cout << "all right\n";
 	std::cout << lossCounter;
 
-	return _CrtDumpMemoryLeaks();
+	//return _CrtDumpMemoryLeaks();
+	return 0;
 
 }
 
