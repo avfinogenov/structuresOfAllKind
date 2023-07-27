@@ -45,9 +45,9 @@ int main()
 	MyBinaryTree t;
 	//int sizeOfTree = rand() % 300 + 1500;
 	int sizeOfTree = 100050;
-	std::list<int> testValues = createTree(t, sizeOfTree);
-	std::set<int> setOfTestValuesKeys;
-	std::set<int> setOfTestValuesV;
+	std::list<long long> testValues = createTree(t, sizeOfTree);
+	std::set<long long> setOfTestValuesKeys;
+	std::set<long long> setOfTestValuesV;
 	for (int i = 0; i < sizeOfTree; ++i)
 	{
 		int tmp = testValues.front();
@@ -59,11 +59,11 @@ int main()
 	std::cout << sizeOfTree << " " << t.getNumberOfNodes() << " " << t.getNumberOfRepeats();
 	int lossCounter = 0;
 	int numberOfInserts = setOfTestValuesKeys.size();
-	std::set<int>::iterator it = setOfTestValuesKeys.begin();
+	std::set<long long>::iterator it = setOfTestValuesKeys.begin();
 	for (int i = 0; i < numberOfInserts; ++i)
 	{
 		int tryCOunter = 0;
-		int tmp1, tmp2;
+		long long tmp1, tmp2;
 		tmp1 = *(it++);
 		//testValues.pop_front();
 		tmp2 = rand() % (sizeOfTree * sizeOfTree / ((sizeOfTree / 100 + 1) % 100));
