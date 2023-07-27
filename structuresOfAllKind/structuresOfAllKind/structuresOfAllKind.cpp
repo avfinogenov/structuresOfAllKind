@@ -69,6 +69,25 @@ int main()
 		//testValues.pop_front();
 		//testValues.push_back(tmp);
 
+	}
+	/*for (int i = 0; i < sizeOfTree; ++i)
+	{
+		cards2.push_back(i + 50000 + (rand() % sizeOfTree));
+	}*/
+	std::shuffle(std::begin(cards_), std::end(cards_), rng);
+	srand(time(NULL));
+	//std::shuffle(std::begin(cards2), std::end(cards2), rng);
+	createTree(t, cards_);
+	
+	std::set<long long> setOfTestValuesKeys;
+	std::set<long long> setOfTestValuesV;
+	for (int i = 0; i < sizeOfTree; ++i)
+	{
+		//int tmp = testValues.front();
+		setOfTestValuesKeys.insert(cards_[i]);
+		//testValues.pop_front();
+		//testValues.push_back(tmp);
+
 	}*/
 	std::cout << sizeOfTree << " " << t.getNumberOfNodes() << " " << t.getNumberOfRepeats();
 	int lossCounter = 0;
