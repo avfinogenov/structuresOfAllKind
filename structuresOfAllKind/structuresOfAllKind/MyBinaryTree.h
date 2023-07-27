@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include <vector>
 #include "Nodes.h"
 
 class MyBinaryTree
@@ -32,4 +33,4 @@ private:
 
 };
 
-std::list<int> createTree(MyBinaryTree& treeToCreate, int numberOfInputs);
+void createTree(MyBinaryTree& treeToCreate, std::vector<int> &inputValues);

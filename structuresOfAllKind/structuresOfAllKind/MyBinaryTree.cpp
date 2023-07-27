@@ -202,17 +202,17 @@ BinaryTreeNode* MyBinaryTree::findNextStep(BinaryTreeNode* node, int key)
 
 
 
-std::list<int> createTree(MyBinaryTree& treeToCreate, int numberOfInputs)
+void createTree(MyBinaryTree& treeToCreate, std::vector<int> &inputValues)
 {
-	std::list<int> values;
-	for (int i = 0; i < numberOfInputs; ++i)
+	//std::list<int> values;
+	for (int i = 0; i < inputValues.size() / 2; ++i)
 	{
-		int tmp = rand() % (numberOfInputs * numberOfInputs * 2 /  100);
+		//int tmp = rand() % (numberOfInputs * numberOfInputs * 2 /  100);
 		//tmp = tmp - (numberOfInputs * numberOfInputs / ((numberOfInputs / 100 + 1) % 100));
-		values.push_back(tmp);
-		treeToCreate.add(tmp);
+		//values.push_back();
+		treeToCreate.add(inputValues[i]);
 	}
-	return values;
+	return ;
 
 
 }
