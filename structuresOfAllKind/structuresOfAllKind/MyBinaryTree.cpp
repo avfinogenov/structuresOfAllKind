@@ -36,6 +36,9 @@ BinaryTreeNode* MyBinaryTree::find(int key)
 
 bool MyBinaryTree::insert(int key, int value)
 {
+	if (find(value) != nullptr)
+		return false;
+
 	return insertWithRules(find(key), value);
 
 }
@@ -190,7 +193,7 @@ std::list<int> createTree(MyBinaryTree& treeToCreate, int numberOfInputs)
 	std::list<int> values;
 	for (int i = 0; i < numberOfInputs; ++i)
 	{
-		int tmp = rand() % 1000;
+		int tmp = rand() % 10000;
 		values.push_back(tmp);
 		treeToCreate.add(tmp);
 	}
