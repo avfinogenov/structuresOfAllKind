@@ -11,7 +11,7 @@ public:
 	void add(long long value);
 	BinaryTreeNode* find(long long key);
 	//родилась из неправильного понимания теории, решил сделать потому что забавно
-	bool insert(int key, int value);
+	bool insert(long long key, long long value);
 	void remove(int key);
 	void traverse(void* foo);
 	void join(MyBinaryTree anotherTree);

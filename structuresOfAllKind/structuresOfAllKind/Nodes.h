@@ -4,7 +4,7 @@ template <typename T>
 struct StackNode
 {
 	StackNode<T>* prev = nullptr;
-	T data;
+	T data = T();
 };
 
 
@@ -13,7 +13,7 @@ struct QueueNode
 {
 
 	QueueNode<T>* next = nullptr;
-	T data;
+	T data = T();
 };
 
 template <typename T>
@@ -22,12 +22,12 @@ struct TwoWayNode
 
 	TwoWayNode<T>* next = nullptr;
 	TwoWayNode<T>* prev = nullptr;
-	T data;
+	T data = T();
 };
 
 struct BinaryTreeNode
 {
-	long long key;
+	long long key = 0;
 	//не меньше
 	long long notLesser = LLONG_MIN;
 	//не больше
