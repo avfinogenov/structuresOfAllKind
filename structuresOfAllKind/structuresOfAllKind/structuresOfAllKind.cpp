@@ -44,28 +44,30 @@ int main()
 	//listTest();
 	MyBinaryTree t;
 	//int sizeOfTree = rand() % 300 + 1500;
-	int sizeOfTree = 100050;
+	int sizeOfTree = 30050;
 	auto rng = std::default_random_engine{};
-	std::vector<int> cards_;
+	std::vector<long long> cards_;
 	for (int i = 0; i < sizeOfTree; ++i)
 	{
 		cards_.push_back(i);
 	}
 	std::shuffle(std::begin(cards_), std::end(cards_), rng);
-	std::list<long long> testValues = createTree(t, sizeOfTree);
+	createTree(t, cards_);
+	
 	std::set<long long> setOfTestValuesKeys;
 	std::set<long long> setOfTestValuesV;
 	for (int i = 0; i < sizeOfTree; ++i)
 	{
-		int tmp = testValues.front();
-		setOfTestValuesKeys.insert(tmp);
-		testValues.pop_front();
-		testValues.push_back(tmp);
+		//int tmp = testValues.front();
+		setOfTestValuesKeys.insert(cards_[i]);
+		//testValues.pop_front();
+		//testValues.push_back(tmp);
 
 	}
 	std::cout << sizeOfTree << " " << t.getNumberOfNodes() << " " << t.getNumberOfRepeats();
 	int lossCounter = 0;
-	int numberOfInserts = setOfTestValuesKeys.size();
+	//int numberOfInserts = setOfTestValuesKeys.size();
+	int numberOfInserts = 10;
 	std::set<long long>::iterator it = setOfTestValuesKeys.begin();
 	for (int i = 0; i < numberOfInserts; ++i)
 	{
@@ -73,7 +75,7 @@ int main()
 		long long tmp1, tmp2;
 		tmp1 = *(it++);
 		//testValues.pop_front();
-		tmp2 = rand() % (sizeOfTree * sizeOfTree / ((sizeOfTree / 100 + 1) % 100));
+		tmp2 = (rand() % (sizeOfTree / 10) ) + 50050;
 		while (setOfTestValuesKeys.find(tmp2) != setOfTestValuesKeys.end())
 		{
 			if (tryCOunter > 10000000)
@@ -82,13 +84,14 @@ int main()
 				return 0;
 			}
 			tryCOunter++;
-			tmp2 = (rand() % (sizeOfTree * sizeOfTree / ((sizeOfTree / 100 + 1) % 100)));
+			tmp2 = ((rand() % (sizeOfTree / 10  ))  + 50050) + i * 100;
+			tmp2 = tmp2 * (((rand() % 2) * -2) + 1);
 		}
 		
 		//tmp2 = tmp2 - (sizeOfTree * sizeOfTree);
 		/*int tmp3 = std::max(tmp1, tmp2);
 		int tmp4 = std::min(tmp1, tmp2);*/
-
+		tryCOunter = 0;
 		while (!t.insert(tmp1, tmp2))
 		{
 			if (tryCOunter > 10000000)
@@ -97,7 +100,8 @@ int main()
 				return 0;
 			}
 			tryCOunter++;
-			tmp2 = (rand() % (sizeOfTree * sizeOfTree / ((sizeOfTree / 100 + 1) % 100))) ;
+			tmp2 = ((rand() % (sizeOfTree /10 ))   +50000) + i * 100;
+			tmp2 = tmp2 * (((rand() % 2) * -2) + 1);
 			//tmp2 = tmp2 - ((sizeOfTree * sizeOfTree) + tryCOunter);
 		}
 		
