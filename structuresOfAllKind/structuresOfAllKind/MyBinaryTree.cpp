@@ -34,7 +34,7 @@ BinaryTreeNode* MyBinaryTree::find(long long key)
 	return root.key == key? &root: findNextStep(&root, key);
 }
 
-bool MyBinaryTree::insert(int key, int value)
+bool MyBinaryTree::insert(long long key, long long value)
 {
 	BinaryTreeNode* node;
 	if ((node = find(value)) != nullptr)

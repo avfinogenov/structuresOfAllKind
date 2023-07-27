@@ -35,7 +35,7 @@ void listTest();
 
 int main()
 {
-	srand(time(NULL));
+	
 	//std::cout << "stack test\n";
 	//stackTest();
 	//std::cout << "queue test\n";
@@ -44,14 +44,20 @@ int main()
 	//listTest();
 	MyBinaryTree t;
 	//int sizeOfTree = rand() % 300 + 1500;
-	int sizeOfTree = 30050;
+	int sizeOfTree = 500050;
 	auto rng = std::default_random_engine{};
-	std::vector<long long> cards_;
+	std::vector<long long> cards_, cards2;
 	for (int i = 0; i < sizeOfTree; ++i)
 	{
 		cards_.push_back(i);
 	}
+	/*for (int i = 0; i < sizeOfTree; ++i)
+	{
+		cards2.push_back(i + 50000 + (rand() % sizeOfTree));
+	}*/
 	std::shuffle(std::begin(cards_), std::end(cards_), rng);
+	srand(time(NULL));
+	//std::shuffle(std::begin(cards2), std::end(cards2), rng);
 	createTree(t, cards_);
 	
 	std::set<long long> setOfTestValuesKeys;
@@ -67,15 +73,17 @@ int main()
 	std::cout << sizeOfTree << " " << t.getNumberOfNodes() << " " << t.getNumberOfRepeats();
 	int lossCounter = 0;
 	//int numberOfInserts = setOfTestValuesKeys.size();
-	int numberOfInserts = 10;
+	int numberOfInserts = 10000;
 	std::set<long long>::iterator it = setOfTestValuesKeys.begin();
 	for (int i = 0; i < numberOfInserts; ++i)
 	{
 		int tryCOunter = 0;
 		long long tmp1, tmp2;
-		tmp1 = *(it++);
+		//tmp1 = *(it++);
+		tmp1 = cards_[i];
 		//testValues.pop_front();
-		tmp2 = (rand() % (sizeOfTree / 10) ) + 50050;
+		tmp2 = rand();
+		//tmp2 = cards2[i];
 		while (setOfTestValuesKeys.find(tmp2) != setOfTestValuesKeys.end())
 		{
 			if (tryCOunter > 10000000)
@@ -84,8 +92,9 @@ int main()
 				return 0;
 			}
 			tryCOunter++;
-			tmp2 = ((rand() % (sizeOfTree / 10  ))  + 50050) + i * 100;
+			tmp2 = ((rand() % (LLONG_MAX - sizeOfTree)) * pow(10, rand() % 20)) + sizeOfTree;
 			tmp2 = tmp2 * (((rand() % 2) * -2) + 1);
+			//tmp2 = cards2[i + tryCOunter];
 		}
 		
 		//tmp2 = tmp2 - (sizeOfTree * sizeOfTree);
@@ -98,12 +107,15 @@ int main()
 			continue;
 			/*if (tryCOunter > 10000000)
 			{
-				std::cout << "cant find a number to insert\n";
+				std::cout << "cant find a number to insert\n" << "index " << i;
+				t.insert(tmp1, tmp2);
 				return 0;
 			}
-			tryCOunter++;
-			tmp2 = ((rand() % (sizeOfTree /10 ))   +50000) + i * 100;
+			tmp2 = ((rand() % (LLONG_MAX - sizeOfTree )) * pow(10, rand() % 20)) + sizeOfTree;
 			tmp2 = tmp2 * (((rand() % 2) * -2) + 1);
+			//tmp2 = cards2[i + tryCOunter];
+			tryCOunter++;
+			tmp1 = cards_[rand() % sizeOfTree];
 			//tmp2 = tmp2 - ((sizeOfTree * sizeOfTree) + tryCOunter);
 		}
 		
@@ -163,7 +175,8 @@ int main()
 	std::cout << "all right\n";
 	std::cout << lossCounter;
 
-	return _CrtDumpMemoryLeaks();
+	//return _CrtDumpMemoryLeaks();
+	return 0;
 
 }
 
