@@ -1,7 +1,11 @@
-﻿//#define __CRTDBG_MAP_ALLOC
-//#include <crtdbg.h>
-//#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
-//#define new DEBUG_NEW
+﻿#ifndef __CRTDBG_MAP_ALLOC
+#define __CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define new DEBUG_NEW
+#endif // !__CRTDBG_MAP_ALLOC
+
+
 
 #include <iostream>
 #include <list>
@@ -9,7 +13,6 @@
 #include <random>
 #include <queue>
 #include <list>
-#include <set>
 #include <algorithm>
 #include <random>
 #include <vector>
@@ -24,8 +27,7 @@
 //in queue and twowaylist need to rethink constructor
 // smart pointers
 // перечисление в дерево
-// понять, почему иногда находит ключ, 
-// прокоментить формулы
+
 
 void stackTest();
 void queueTest();
@@ -51,33 +53,21 @@ int main()
 	{
 		cards_.push_back(i);
 	}
-	/*for (int i = 0; i < sizeOfTree; ++i)
-	{
-		cards2.push_back(i + 50000 + (rand() % sizeOfTree));
-	}*/
+
 	std::shuffle(std::begin(cards_), std::end(cards_), rng);
 	srand(time(NULL));
-	//std::shuffle(std::begin(cards2), std::end(cards2), rng);
+
 	createTree(t, cards_);
 	
 
 
 	
-	std::set<long long> setOfTestValuesKeys;
-	std::set<long long> setOfTestValuesV;
-	for (int i = 0; i < sizeOfTree; ++i)
-	{
-		//int tmp = testValues.front();
-		setOfTestValuesKeys.insert(cards_[i]);
-		//testValues.pop_front();
-		//testValues.push_back(tmp);
 
-	}
 	std::cout << sizeOfTree << " " << t.getNumberOfNodes() << " " << t.getNumberOfRepeats();
 	int lossCounter = 0;
-	//int numberOfInserts = setOfTestValuesKeys.size();
+
 	int numberOfInserts = 500000;
-	std::set<long long>::iterator it = setOfTestValuesKeys.begin();
+
 	int haha = 0;
 	for (int i = 0; i < numberOfInserts; ++i)
 	{
@@ -91,27 +81,11 @@ int main()
 		
 		int tryCOunter = 0;
 		long long tmp1, tmp2;
-		//tmp1 = *(it++);
+
 		tmp1 = cards_[i];
-		//testValues.pop_front();
+
 		tmp2 = rand();
-		//tmp2 = cards2[i];
-		//while (setOfTestValuesKeys.find(tmp2) != setOfTestValuesKeys.end())
-		//{
-		//	if (tryCOunter > 10000000)
-		//	{
-		//		std::cout << "cant find a number to insert\n";
-		//		return 0;
-		//	}
-		//	tryCOunter++;
-		//	tmp2 = ((rand() % (LLONG_MAX - sizeOfTree)) * pow(10, rand() % 20)) + sizeOfTree;
-		//	tmp2 = tmp2 * (((rand() % 2) * -2) + 1);
-		//	//tmp2 = cards2[i + tryCOunter];
-		//}
-		
-		//tmp2 = tmp2 - (sizeOfTree * sizeOfTree);
-		/*int tmp3 = std::max(tmp1, tmp2);
-		int tmp4 = std::min(tmp1, tmp2);*/
+
 		tryCOunter = 0;
 		while (!t.insert(tmp1, tmp2))
 		{
@@ -124,17 +98,17 @@ int main()
 				t.insert(tmp1, tmp2);
 				return 0;
 			}
+			// идея в том, чтобы получать значения, которые с большей вероятностью можно будет добавить в дерево
+			// потому что простая генерация случайных чисел слишком часто дает значения, которые не встроить в большое дерево
 			tmp2 = ((rand() % (LLONG_MAX - sizeOfTree )) * pow(10, rand() % 20)) + sizeOfTree;
 			tmp2 = tmp2 * (((rand() % 2) * -2) + 1);
-			//tmp2 = cards2[i + tryCOunter];
+
 			tryCOunter++;
 			tmp1 = cards_[tryCOunter % sizeOfTree];
-			//tmp2 = tmp2 - ((sizeOfTree * sizeOfTree) + tryCOunter);
+
 		}
 		
-		
-		
-		setOfTestValuesV.insert(tmp2);
+
 
 		BinaryTreeNode* node = t.find(tmp2);
 		if (node != nullptr)
@@ -174,16 +148,7 @@ int main()
 	
 	
 	
-	/*for (;!testValues.empty(); )
-	{
-		if (testValues.front() != t.find(testValues.front())->key)
-		{
-			std::cout << "error\n";
-			return 1;
-		}
-		testValues.pop_front();
 
-	}*/
 	std::cout << "all right\n";
 	std::cout << lossCounter;
 
