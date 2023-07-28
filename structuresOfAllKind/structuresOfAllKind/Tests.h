@@ -25,3 +25,4 @@
 void stackTest();
 void queueTest();
 void listTest();
+void treeTest();
