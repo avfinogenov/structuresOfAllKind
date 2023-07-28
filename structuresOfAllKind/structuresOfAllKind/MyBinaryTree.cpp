@@ -205,12 +205,13 @@ BinaryTreeNode* MyBinaryTree::findNextStep(BinaryTreeNode* node, long long key)
 void createTree(MyBinaryTree& treeToCreate, std::vector<long long>& inputValues)
 {
 	//std::list<int> values;
-	for (int i = 0; i < inputValues.size(); ++i)
+	int numberOfInputs = inputValues.size();
+	for (int i = 0; i < numberOfInputs; ++i)
 	{
-		int tmp = rand() % (numberOfInputs * numberOfInputs * 2 /  100);
+		//int tmp = rand() % (numberOfInputs * numberOfInputs * 2 /  100);
 		//tmp = tmp - (numberOfInputs * numberOfInputs / ((numberOfInputs / 100 + 1) % 100));
-		values.push_back(tmp);
-		treeToCreate.add(tmp);
+		
+		treeToCreate.add(inputValues[i]);
 	}
 	return;
 
