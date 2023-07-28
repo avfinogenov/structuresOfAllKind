@@ -1,12 +1,15 @@
-﻿#ifndef __CRTDBG_MAP_ALLOC
+﻿
+
+
+#ifndef __CRTDBG_MAP_ALLOC
 #define __CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
 #define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
 #define new DEBUG_NEW
 #endif // !__CRTDBG_MAP_ALLOC
 
-
 #include "Tests.h"
+
 
 
 
@@ -32,8 +35,8 @@ int main()
 	listTest();
 	treeTest();
 	
-	//return _CrtDumpMemoryLeaks();
-	return 0;
+	return _CrtDumpMemoryLeaks();
+	//return 0;
 
 }
 

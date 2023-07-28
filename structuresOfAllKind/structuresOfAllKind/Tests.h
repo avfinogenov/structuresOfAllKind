@@ -8,9 +8,12 @@
 
 
 #include <iostream>
+
 #include <list>
+
 #include <stack>
-#include <random>
+
+
 #include <queue>
 #include <list>
 #include <algorithm>
@@ -26,3 +29,9 @@ void stackTest();
 void queueTest();
 void listTest();
 void treeTest();
+bool listTest1(TwoWayList<int>& myList, std::list<int> originList);
+bool listTest2(TwoWayList<int>& myList, std::list<int> originList);
+bool listTest3(TwoWayList<int>& myList, std::list<int> originList);
+bool listTest4(TwoWayList<int>& myList, std::list<int> originList);
+bool listTest5(TwoWayList<int>& myList, std::list<int>& originList);
+bool listTest6(TwoWayList<int>& myList, std::list<int>& originList);
