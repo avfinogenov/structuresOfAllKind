@@ -8,7 +8,7 @@
 #define new DEBUG_NEW
 #endif // !__CRTDBG_MAP_ALLOC
 
-#include "Tests.h"
+#include "tests/Tests.h"
 
 
 

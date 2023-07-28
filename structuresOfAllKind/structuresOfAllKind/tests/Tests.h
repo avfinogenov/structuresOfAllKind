@@ -19,10 +19,10 @@
 #include <algorithm>
 #include <random>
 #include <vector>
-#include "MyStack.h"
-#include "MyQueue.h"
-#include "TwoWayList.h"
-#include "MyBinaryTree.h"
+#include "../structures/MyStack.h"
+#include "../structures/MyQueue.h"
+#include "../structures/TwoWayList.h"
+#include "../structures/MyBinaryTree.h"
 
 
 void stackTest();
