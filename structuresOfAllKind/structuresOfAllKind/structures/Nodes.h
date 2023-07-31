@@ -37,11 +37,19 @@ struct TwoWayNode
 struct BinaryTreeNode
 {
 	long long key = 0;
+
+	BinaryTreeNode* greater = nullptr;
+	BinaryTreeNode* lesser = nullptr;
+	BinaryTreeNode* parent = nullptr;
+};
+
+struct BinaryTreeNodeWithRules 
+{
+	
 	//не меньше
 	long long notLesser = LLONG_MIN;
 	//не больше
 	long long notGreater = LLONG_MAX;
-	BinaryTreeNode* greater = nullptr;
-	BinaryTreeNode* lesser = nullptr;
-	BinaryTreeNode* parent = nullptr;
+	BinaryTreeNode* node = nullptr;
+	
 };

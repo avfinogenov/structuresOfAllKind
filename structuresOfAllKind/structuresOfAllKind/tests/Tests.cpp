@@ -357,7 +357,7 @@ void treeTest()
 		tmp2 = rand();
 
 		tryCOunter = 0;
-		while (!t.insert(tmp1, tmp2))
+		while (!t.insertSpecial(tmp1, tmp2))
 		{
 
 
@@ -365,7 +365,7 @@ void treeTest()
 			if (tryCOunter > 10000000)
 			{
 				std::cout << "cant find a number to insert\n" << "index " << i;
-				t.insert(tmp1, tmp2);
+				t.insertSpecial(tmp1, tmp2);
 				return;
 			}
 			// идея в том, чтобы получать значения, которые с большей вероятностью можно будет добавить в дерево

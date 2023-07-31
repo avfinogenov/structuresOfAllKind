@@ -47,7 +47,7 @@ BinaryTreeNode* MyBinaryTree::find(long long key)
 	return root.key == key? &root: findNextStep(&root, key);
 }
 
-bool MyBinaryTree::insert(long long key, long long value)
+bool MyBinaryTree::insertSpecial(long long key, long long value)
 {
 	BinaryTreeNode* node;
 	if ((node = find(value)) != nullptr)
@@ -65,8 +65,12 @@ bool MyBinaryTree::insert(long long key, long long value)
 				
 		}
 	}
-
-	return insertWithRules(find(key), value);
+	//need find with rules
+	// node with rules
+	//rethink insert with rules
+	BinaryTreeNodeWithRules tmp, resultOfSearch;
+	resultOfSearch = *findWithRules(&tmp, key);
+	return insertWithRules(&resultOfSearch, value);
 
 }
 
@@ -92,8 +96,7 @@ void MyBinaryTree::remove(long long key)
 			BinaryTreeNode* tmpNode = node;
 			node->parent->greater = node->lesser;
 			node->lesser->parent = node->parent;
-			node->lesser->notLesser = node->notLesser;
-			node->lesser->notGreater = node->notGreater;
+			
 			BinaryTreeNode* greaterNode = findGreatest(node->lesser);
 			greaterNode->greater = node->greater;
 			node->greater->parent = greaterNode;
@@ -108,8 +111,7 @@ void MyBinaryTree::remove(long long key)
 		BinaryTreeNode* tmpNode = node->greater ? node->greater : node->lesser;
 		node->parent->greater = tmpNode;
 		tmpNode->parent = node->parent;
-		tmpNode->notLesser = node->notLesser;
-		tmpNode->notGreater = node->notGreater;
+		
 		BinaryTreeNode* nodeForDelete = node;
 		node = tmpNode;
 		delete nodeForDelete;
@@ -134,8 +136,7 @@ void MyBinaryTree::remove(long long key)
 			BinaryTreeNode* tmpNode = node;
 			node->parent->lesser = node->greater;
 			node->greater->parent = node->parent;
-			node->greater->notLesser = node->notLesser;
-			node->greater->notGreater = node->notGreater;
+			
 			BinaryTreeNode* lesserNode = findLessiest(node->greater);
 			lesserNode->lesser = node->lesser;
 			node->lesser->parent = lesserNode;
@@ -154,8 +155,7 @@ void MyBinaryTree::remove(long long key)
 		BinaryTreeNode* tmpNode = node->greater ? node->greater : node->lesser;
 		node->parent->lesser = tmpNode;
 		tmpNode->parent = node->parent;
-		tmpNode->notLesser = node->notLesser;
-		tmpNode->notGreater = node->notGreater;
+		
 		BinaryTreeNode* nodeForDelete = node;
 		node = tmpNode;
 		delete nodeForDelete;
@@ -198,7 +198,7 @@ uint64_t MyBinaryTree::getNumberOfDeletes()
 void MyBinaryTree::insert(BinaryTreeNode* node, long long value)
 {
 	
-	
+	// используется функцией add
 	
 	if (node->key == value)
 	{
@@ -213,8 +213,7 @@ void MyBinaryTree::insert(BinaryTreeNode* node, long long value)
 			m_numberOfInserts++;
 			node->greater->parent = node;
 			node->greater->key = value;
-			node->greater->notLesser = std::max(node->key, node->notLesser);
-			node->greater->notGreater = node->notGreater;
+			
 
 		}
 		else
@@ -230,8 +229,7 @@ void MyBinaryTree::insert(BinaryTreeNode* node, long long value)
 			m_numberOfInserts++;
 			node->lesser->parent = node;
 			node->lesser->key = value;
-			node->lesser->notGreater = std::min(node->key, node->notGreater);
-			node->lesser->notLesser = node->notLesser;
+			
 		}
 		else
 		{
@@ -242,9 +240,11 @@ void MyBinaryTree::insert(BinaryTreeNode* node, long long value)
 
 }
 
-bool MyBinaryTree::insertWithRules(BinaryTreeNode* node, long long value)
+bool MyBinaryTree::insertWithRules(BinaryTreeNodeWithRules* node, long long value)
 {
-	if (node != &root)
+
+	// используется функцией insertSpecial
+	if (node->node != &root)
 	{
 		
 		if (value > node->notGreater)
@@ -258,44 +258,56 @@ bool MyBinaryTree::insertWithRules(BinaryTreeNode* node, long long value)
 	}
 	
 
-	if (node->key == value)
+	if (node->node->key == value)
 	{
 		m_numberOfRepeats++;
 		return true;
 	}
-	if (value > node->key)
+	if (value > node->node->key)
 	{
-		if (node->greater == nullptr)
+		if (node->node->greater == nullptr)
 		{
-			node->greater = new BinaryTreeNode();
+			node->node->greater = new BinaryTreeNode();
 			m_numberOfInserts++;
-			node->greater->parent = node;
-			node->greater->key = value;
+			node->node->greater->parent = node->node;
+			node->node->greater->key = value;
 			
-			node->greater->notLesser = std::max(node->key, node->notLesser);
-			node->greater->notGreater = node->notGreater;
+			
 			
 		}
 		else
 		{
-			return insertWithRules(node->greater, value);
+			//make rules
+			node->notLesser = std::max(node->node->key, node->notLesser);
+			node->notGreater = node->notGreater;
+			
+
+		
+
+			node->node = node->node->greater;
+			return insertWithRules(node, value);
 		}
 	}
-	if (value < node->key)
+	if (value < node->node->key)
 	{
-		if (node->lesser == nullptr)
+		if (node->node->lesser == nullptr)
 		{
-			node->lesser = new BinaryTreeNode();
+			node->node->lesser = new BinaryTreeNode();
 			m_numberOfInserts++;
-			node->lesser->parent = node;
-			node->lesser->key = value;
+			node->node->lesser->parent = node->node;
+			node->node->lesser->key = value;
 			
-			node->lesser->notGreater = std::min(node->key, node->notGreater);
-			node->lesser->notLesser = node->notLesser;
+			
 		}
 		else
 		{
-			return insertWithRules(node->lesser, value);
+			node->notGreater = std::min(node->node->key, node->notGreater);
+			node->notLesser = node->notLesser;
+
+
+			node->node = node->node->lesser;
+			return insertWithRules(node, value);
+			
 		}
 	}
 	return true;
@@ -325,6 +337,54 @@ BinaryTreeNode* MyBinaryTree::findNextStep(BinaryTreeNode* node, long long key)
 
 }
 
+BinaryTreeNodeWithRules* MyBinaryTree::findNextStepWithRules(BinaryTreeNodeWithRules* node, long long key)
+{
+	if (node->node->lesser == nullptr && node->node->greater== nullptr &&
+		node->node->key != key)
+	{
+		return nullptr;
+	}
+	if (key == node->node->key)
+	{
+		
+
+		return node;
+	}
+	if (key > node->node->key)
+	{
+
+		node->notLesser = std::max(node->node->key, node->notLesser);
+		node->notGreater = node->notGreater;
+		if (node->node->greater != nullptr)
+		{
+			node->node = node->node->greater; 
+			return findNextStepWithRules(node, key);
+		} 
+		else
+		{
+			 node->node = nullptr;
+			 return node;
+		}
+		
+	}
+	else
+	{
+		node->notGreater = std::min(node->node->key, node->notGreater);
+		node->notLesser = node->notLesser;
+		if (node->node->lesser != nullptr)
+		{
+			node->node = node->node->lesser;
+			return findNextStepWithRules(node, key);
+		}
+		else
+		{
+			node->node = nullptr;
+			return node;
+		}
+	}
+
+}
+
 BinaryTreeNode* MyBinaryTree::findLessiest(BinaryTreeNode* node)
 {
 	while (node->lesser != nullptr)
@@ -341,6 +401,13 @@ BinaryTreeNode* MyBinaryTree::findGreatest(BinaryTreeNode* node)
 		node = node->greater;
 	}
 	return node;
+}
+
+BinaryTreeNodeWithRules* MyBinaryTree::findWithRules(BinaryTreeNodeWithRules* node, long long key)
+{
+	
+	node->node = &root;
+	return node->node->key == key ? node : findNextStepWithRules(node, key);
 }
 
 
