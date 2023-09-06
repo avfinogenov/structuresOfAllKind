@@ -40,3 +40,6 @@ bool listTest3(TwoWayList<int>& myList, std::list<int> originList);
 bool listTest4(TwoWayList<int>& myList, std::list<int> originList);
 bool listTest5(TwoWayList<int>& myList, std::list<int>& originList);
 bool listTest6(TwoWayList<int>& myList, std::list<int>& originList);
+void print(long long data);
+
+void traversTest();

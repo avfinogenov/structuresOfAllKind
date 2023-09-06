@@ -428,3 +428,117 @@ void createTree(MyBinaryTree& treeToCreate, std::vector<long long>& inputValues)
 
 
 }
+
+
+void MyBinaryTree::traverseNLR(Travers_t foo, BinaryTreeNode* node)
+{
+	
+	(*foo)(node->key);
+	if (node->greater)
+	{
+		traverseNLR(foo, node->greater);
+	}
+	
+	if (node->lesser)
+	{
+		traverseNLR(foo, node->lesser);
+	}
+	
+	
+}
+
+
+void MyBinaryTree::traverseGreaterToLess(Travers_t foo, BinaryTreeNode* node)
+{
+
+	
+	if (node->greater)
+	{
+		traverseGreaterToLess(foo, node->greater);
+	}
+	(*foo)(node->key);
+	if (node->lesser)
+	{
+		traverseGreaterToLess(foo, node->lesser);
+	}
+
+}
+
+void MyBinaryTree::traverseLRN(Travers_t foo, BinaryTreeNode* node)
+{
+
+	
+	if (node->greater)
+	{
+		traverseLRN(foo, node->greater);
+	}
+	if (node->lesser)
+	{
+		traverseLRN(foo, node->lesser);
+	}
+	(*foo)(node->key);
+
+}
+
+
+void MyBinaryTree::traverseLessToGreater(Travers_t foo, BinaryTreeNode* node)
+{
+
+	
+	if (node->lesser)
+	{
+		traverseLessToGreater(foo, node->lesser);
+	}
+	(*foo)(node->key);
+	if (node->greater)
+	{
+		traverseLessToGreater(foo, node->greater);
+	}
+	
+
+}
+
+
+
+void MyBinaryTree::traverseNLR(Travers_t foo)
+{
+
+	(*foo)(root.key);
+	traverseNLR(foo, root.greater);
+	traverseNLR(foo, root.lesser);
+
+}
+
+
+void MyBinaryTree::traverseGreaterToLess(Travers_t foo)
+{
+
+
+	traverseGreaterToLess(foo, root.greater);
+	(*foo)(root.key);
+	traverseGreaterToLess(foo, root.lesser);
+
+}
+
+void MyBinaryTree::traverseLRN(Travers_t foo)
+{
+
+
+	traverseLRN(foo, root.greater);
+	traverseLRN(foo, root.lesser);
+	(*foo)(root.key);
+
+}
+
+
+void MyBinaryTree::traverseLessToGreater(Travers_t foo)
+{
+
+
+	traverseLessToGreater(foo, root.lesser);
+	(*foo)(root.key);
+	traverseLessToGreater(foo, root.greater);
+
+
+}
+

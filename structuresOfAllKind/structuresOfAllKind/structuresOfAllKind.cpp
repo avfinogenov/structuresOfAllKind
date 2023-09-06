@@ -34,14 +34,17 @@
 int main()
 {
 	
-	std::cout << "stack test\n";
+	/*std::cout << "stack test\n";
 	stackTest();
 	std::cout << "queue test\n";
 	queueTest();
 	std::cout << "list test\n";
 	listTest();
-	treeTest();
+	treeTest();*/
 	
+	traversTest();
+
+
 	return _CrtDumpMemoryLeaks();
 	//return 0;
 

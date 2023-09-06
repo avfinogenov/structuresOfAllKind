@@ -310,7 +310,32 @@ void listTest()
 }
 
 
+void traversTest()
+{
+	MyBinaryTree t;
+	int sizeOfTree = 50;
+	auto rng = std::default_random_engine{};
+	std::vector<long long> cards_, cards2;
+	for (int i = 0; i < sizeOfTree; ++i)
+	{
+		cards_.push_back(i);
+	}
 
+	std::shuffle(std::begin(cards_), std::end(cards_), rng);
+	srand(time(NULL));
+
+	createTree(t, cards_);
+	Travers_t travers_t = &(print);
+
+	t.traverseNLR(travers_t);
+	std::cout << "\n";
+	t.traverseGreaterToLess(travers_t);
+	std::cout << "\n";
+	t.traverseLRN(travers_t);
+	std::cout << "\n";
+	t.traverseLessToGreater(travers_t);
+	std::cout << "\n";
+}
 
 void treeTest()
 {
@@ -432,4 +457,10 @@ void treeTest()
 	std::cout << lossCounter;
 	std::cout << " " << t.getNumberOfInserts() << " ";
 	std::cout << t.getNumberOfDeletes();
+}
+
+
+void print(long long data)
+{
+	std::cout << data << " ";
 }

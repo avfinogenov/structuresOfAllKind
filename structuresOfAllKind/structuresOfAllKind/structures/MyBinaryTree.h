@@ -3,6 +3,8 @@
 #include <vector>
 #include "Nodes.h"
 
+typedef void (*Travers_t)(long long);
+
 class MyBinaryTree
 {
 public:
@@ -13,8 +15,13 @@ public:
 	//родилась из неправильного понимания теории, решил сделать потому что забавно
 	bool insertSpecial(long long key, long long value);
 	void remove(long long key);
-	void traverse(void* foo);
+	void traverseNLR(Travers_t foo);
+	void traverseGreaterToLess(Travers_t foo);
+	void traverseLRN(Travers_t foo);
+	void traverseLessToGreater(Travers_t foo);
+	void traverseBFS(Travers_t foo);
 	void join(MyBinaryTree anotherTree);
+	
 	//debug
 	uint64_t getNumberOfInserts();
 	uint64_t getNumberOfRepeats();
@@ -35,7 +42,11 @@ private:
 	BinaryTreeNode* findLessiest(BinaryTreeNode* node);
 	BinaryTreeNode* findGreatest(BinaryTreeNode* node);
 	BinaryTreeNodeWithRules* findWithRules(BinaryTreeNodeWithRules* node, long long key);
-
+	void traverseNLR(Travers_t foo, BinaryTreeNode* node);
+	void traverseGreaterToLess(Travers_t foo, BinaryTreeNode* node);
+	void traverseLRN(Travers_t foo, BinaryTreeNode* node);
+	void traverseLessToGreater(Travers_t foo, BinaryTreeNode* node);
+	
 };
 
 void createTree(MyBinaryTree& treeToCreate, std::vector<long long>& inputValues);
