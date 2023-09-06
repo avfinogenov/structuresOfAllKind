@@ -40,8 +40,3 @@ private:
 
 void createTree(MyBinaryTree& treeToCreate, std::vector<long long>& inputValues);
 
-//need find with rules +
-// find nextstepwithrules +
-	// node with rules +
-	// make right not compiling +
-	//rethink insert with rules +
