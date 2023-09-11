@@ -5,6 +5,17 @@
 
 typedef void (*Travers_t)(long long);
 
+// find height of a tree
+// right placement of colour
+// balancing
+// ---------------------
+
+//todo
+
+
+// testing
+// add height() to old tree
+
 class MyRNBTree
 {
 public:
@@ -14,8 +25,7 @@ public:
 	~MyRNBTree();
 	void add(long long value);
 	RedNBlackBinaryTreeNode* find(long long key);
-	//родилась из неправильного понимания теории, решил сделать потому что забавно
-	//bool insertSpecial(long long key, long long value);
+	
 	void remove(long long key);
 	void traverseNLR(Travers_t foo);
 	void traverseGreaterToLess(Travers_t foo);
@@ -34,23 +44,24 @@ private:
 	RedNBlackBinaryTreeNode root;
 	bool isRootInit = false;
 	void insert(RedNBlackBinaryTreeNode* node, long long value);
-	//bool insertWithRules(BinaryTreeNodeWithRules* node, long long value);
+	
 	//debug
 	uint64_t m_numberOfInserts = 0;
 	uint64_t m_numberOfDeletes = 0;
 	uint64_t m_numberOfRepeats = 0;
 	RedNBlackBinaryTreeNode* findNextStep(RedNBlackBinaryTreeNode* node, long long key);
-	//BinaryTreeNodeWithRules* findNextStepWithRules(BinaryTreeNodeWithRules* node, long long key);
+	
 	RedNBlackBinaryTreeNode* findLessiest(RedNBlackBinaryTreeNode* node);
 	RedNBlackBinaryTreeNode* findGreatest(RedNBlackBinaryTreeNode* node);
-	//BinaryTreeNodeWithRules* findWithRules(BinaryTreeNodeWithRules* node, long long key);
+	
 	void traverseNLR(Travers_t foo, RedNBlackBinaryTreeNode* node);
 	void traverseGreaterToLess(Travers_t foo, RedNBlackBinaryTreeNode* node);
 	void traverseLRN(Travers_t foo, RedNBlackBinaryTreeNode* node);
 	void traverseLessToGreater(Travers_t foo, RedNBlackBinaryTreeNode* node);
 
-
-
+	int height();
+	int height(RedNBlackBinaryTreeNode* node, int counter);
+	void balance(RedNBlackBinaryTreeNode* node);
 
 
 

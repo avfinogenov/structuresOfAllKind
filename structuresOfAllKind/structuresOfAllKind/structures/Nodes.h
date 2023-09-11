@@ -57,7 +57,7 @@ struct BinaryTreeNodeWithRules
 struct RedNBlackBinaryTreeNode
 {
 	long long key = 0;
-	bool flag = false;
+	bool flag = false; // false - black, true - red
 	RedNBlackBinaryTreeNode* greater = nullptr;
 	RedNBlackBinaryTreeNode* lesser = nullptr;
 	RedNBlackBinaryTreeNode* parent = nullptr;

@@ -187,8 +187,8 @@ void MyRNBTree::insert(RedNBlackBinaryTreeNode* node, long long value)
 			m_numberOfInserts++;
 			node->greater->parent = node;
 			node->greater->key = value;
-
-
+			node->greater->flag = true;
+			balance(node);
 		}
 		else
 		{
@@ -203,7 +203,8 @@ void MyRNBTree::insert(RedNBlackBinaryTreeNode* node, long long value)
 			m_numberOfInserts++;
 			node->lesser->parent = node;
 			node->lesser->key = value;
-
+			node->lesser->flag = true;
+			balance(node);
 		}
 		else
 		{
@@ -213,6 +214,68 @@ void MyRNBTree::insert(RedNBlackBinaryTreeNode* node, long long value)
 
 
 }
+
+
+void MyRNBTree::balance(RedNBlackBinaryTreeNode* node)
+{
+	if ((node->lesser->flag && node->flag) ||
+		(node->greater->flag && node->flag))
+	{
+		if (node->key < node->parent->key)
+		{
+			// если дядя красный
+			if (node->parent->greater->flag)
+			{
+				node->parent->greater->flag = false;
+				node->flag = false;
+				node->parent->flag = true;
+				balance(node->parent);
+			}
+			else
+			{
+				// если дядя черный
+				RedNBlackBinaryTreeNode *tmp1, *tmp2;
+				tmp1 = node->parent;//дед
+				node->parent = node->parent->parent;
+				tmp2 = node->greater;//другой сын
+				node->greater = tmp1;
+				tmp1->parent = node;
+				tmp1->lesser = tmp2;
+				node->flag = false;
+				tmp1->flag = true;
+
+			}
+		}
+		if (node->key > node->parent->key)
+		{
+			// если дядя красный
+			if (node->parent->lesser->flag)
+			{
+				node->parent->lesser->flag = false;
+				node->flag = false;
+				node->parent->flag = true;
+				balance(node->parent);
+			}
+			else
+			{
+				// если дядя черный
+				RedNBlackBinaryTreeNode* tmp1, * tmp2;
+				tmp1 = node->parent;//дед
+				node->parent = node->parent->parent;
+				tmp2 = node->greater;//другой сын
+				node->greater = tmp1;
+				tmp1->parent = node;
+				tmp1->lesser = tmp2;
+				node->flag = false;
+				tmp1->flag = true;
+
+			}
+
+		}
+	}
+	
+}
+
 
 
 
@@ -390,5 +453,38 @@ void MyRNBTree::traverseLessToGreater(Travers_t foo)
 	traverseLessToGreater(foo, root.greater);
 
 
+}
+
+int MyRNBTree::height()
+{
+	int lesser = 0 , greater = 0;
+	if (root.lesser)
+	{
+		lesser = height(root.lesser, 1);
+	}
+	
+	if (root.greater)
+	{
+		greater = height(root.greater, 1);
+	}
+	return std::max(lesser, greater);
+}
+int MyRNBTree::height(RedNBlackBinaryTreeNode* node, int counter)
+{
+	int lesser = 0, greater = 0;
+	if (!node->lesser && !node->greater)
+	{
+
+	}
+	if (node->lesser)
+	{
+		lesser = height(node->lesser, counter + 1);
+	}
+	if (node->greater)
+	{
+		greater = height(node->greater, counter + 1);
+	}
+	int tmp = std::max(lesser, greater);
+	return std::max(tmp, counter);
 }
 
