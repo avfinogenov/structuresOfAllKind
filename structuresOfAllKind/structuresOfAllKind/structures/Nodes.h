@@ -53,3 +53,12 @@ struct BinaryTreeNodeWithRules
 	BinaryTreeNode* node = nullptr;
 	
 };
+
+struct RedNBlackBinaryTreeNode
+{
+	long long key = 0;
+	bool flag = false;
+	RedNBlackBinaryTreeNode* greater = nullptr;
+	RedNBlackBinaryTreeNode* lesser = nullptr;
+	RedNBlackBinaryTreeNode* parent = nullptr;
+};
